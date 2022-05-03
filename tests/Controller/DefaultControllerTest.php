@@ -23,6 +23,7 @@ class DefaultControllerTest extends WebTestCase
             ['/', 200],
             ['/contact', 200],
             ['/book', 200],
+            ['/movie', 200],
             ['/disk', 404],
         ];
     }
