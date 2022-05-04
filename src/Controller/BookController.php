@@ -2,11 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Book;
+use App\Events\BookEvent;
 use App\Form\BookType;
+use App\Repository\BookRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[Route('/book', name: 'app_book_')]
 class BookController extends AbstractController
@@ -20,13 +24,18 @@ class BookController extends AbstractController
     }
 
     #[Route('/create', name: 'create')]
-    public function create(Request $request): Response
+    public function create(Request $request, BookRepository $repository, EventDispatcherInterface $dispatcher): Response
     {
-        $form = $this->createForm(BookType::class);
+        $book = new Book();
+        $form = $this->createForm(BookType::class, $book);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());
+            $repository->add($book);
+            $dispatcher->dispatch(new BookEvent($book), BookEvent::NAME);
+            $this->addFlash('success', 'New book published');
+
+            return $this->redirectToRoute('app_book_create');
         }
 
         return $this->renderForm('book/create.html.twig', [
