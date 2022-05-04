@@ -19,7 +19,7 @@ class MovieController extends AbstractController
         ]);
     }
 
-    #[Route('/{title<\w+>?Star%20Wars}', name: 'details')]
+    #[Route('/{title}', name: 'details')]
     public function details(string $title, MovieProvider $provider): Response
     {
         $movie = $provider->getByTitle($title);

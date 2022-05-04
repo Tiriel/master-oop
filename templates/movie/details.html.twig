@@ -11,13 +11,15 @@
     {% endfor %}
 
     <div class="example-wrapper">
-        <h1>Movie : {{ movie.title }}</h1>
+        <h1 class="pt-5">Movie : {{ movie.title }}</h1>
         <img src="{{ movie.poster}}" />
 
         <ul>
             <li>Country : {{ movie.country }}</li>
             <li>Release date: {{ movie.releasedAt|date('Y M d') }}</li>
             <li>Genres: {{ genres }}</li>
+            <li>Rated: {{ movie.rated }}</li>
+            <li>IMDb ID: {{ movie.omdbId }}</li>
         </ul>
     </div>
 {% endblock %}

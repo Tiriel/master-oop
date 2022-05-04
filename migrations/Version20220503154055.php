@@ -22,7 +22,7 @@ final class Version20220503154055 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE genre (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, poster VARCHAR(255) NOT NULL)');
         $this->addSql('CREATE TABLE movie (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title VARCHAR(255) NOT NULL, poster VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, released_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
-        , price NUMERIC(4, 2) NOT NULL)');
+        , omdb_id VARCHAR(255) NOT NULL, rated VARCHAR(255) NOT NULL, price NUMERIC(4, 2) NOT NULL)');
     }
 
     public function down(Schema $schema): void
