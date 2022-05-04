@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\BookType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,10 +20,15 @@ class BookController extends AbstractController
     }
 
     #[Route('/create', name: 'create')]
-    public function create(): Response
+    public function create(Request $request): Response
     {
         $form = $this->createForm(BookType::class);
 
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
+        }
+        
         return $this->renderForm('book/create.html.twig', [
             'book_form' => $form,
         ]);
