@@ -6,6 +6,7 @@ use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -15,15 +16,19 @@ class Book
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
+    #[Assert\Isbn(type: 'isbn-13')]
+    #[Assert\NotBlank]
     #[ORM\Column(type: 'string', length: 255)]
     private $isbn;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $releasedAt;
 
+    #[Assert\Length(min: 20)]
     #[ORM\Column(type: 'text')]
     private $plot;
 

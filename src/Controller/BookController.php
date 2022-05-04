@@ -28,7 +28,7 @@ class BookController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             dump($form->getData());
         }
-        
+
         return $this->renderForm('book/create.html.twig', [
             'book_form' => $form,
         ]);
