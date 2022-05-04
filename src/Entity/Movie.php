@@ -30,7 +30,7 @@ class Movie
     #[ORM\Column(type: 'decimal', precision: 4, scale: 2)]
     private $price;
 
-    #[ORM\ManyToMany(targetEntity: Genre::class)]
+    #[ORM\ManyToMany(targetEntity: Genre::class, cascade: ['persist'])]
     private $genres;
 
     public function __construct()
