@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Movie;
 use App\Provider\MovieProvider;
+use App\Security\Voter\MovieRatingVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,6 +24,7 @@ class MovieController extends AbstractController
     public function details(string $title, MovieProvider $provider): Response
     {
         $movie = $provider->getByTitle($title);
+        $this->denyAccessUnlessGranted(MovieRatingVoter::RATING, $movie);
 
         return $this->render('movie/details.html.twig', [
             'movie' => $movie,
