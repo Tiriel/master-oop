@@ -5,12 +5,11 @@
 {% block body %}
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Books</h1>
 
-    This friendly message is coming from:
+    Links:
     <ul>
-        <li>Your controller at <code><a href="{{ '/home/benjamin/Dev/sl/formations/sensiotv_webapp/src/Controller/BookController.php'|file_link(0) }}">src/Controller/BookController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/benjamin/Dev/sl/formations/sensiotv_webapp/templates/book/index.html.twig'|file_link(0) }}">templates/book/index.html.twig</a></code></li>
+        <li><a href="{{ path('app_book_create') }}">New Book</a></li>
     </ul>
 </div>
 {% endblock %}
