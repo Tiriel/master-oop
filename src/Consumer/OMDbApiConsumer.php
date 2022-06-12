@@ -2,6 +2,7 @@
 
 namespace App\Consumer;
 
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -10,10 +11,17 @@ class OMDbApiConsumer
     public const MODE_ID = 'i';
     public const MODE_SEARCH = 's';
     public const MODE_TITLE = 't';
+    private HttpClientInterface $omdbClient;
 
-    public function __construct(
-        private HttpClientInterface $omdbClient
-    ) {}
+    public function __construct() {
+        $this->omdbClient = HttpClient::createForBaseUri('http://www.omdbapi.com/')
+            ->withOptions([
+                'query' => [
+                    'apikey' => getenv('OMDB_API_KEY'),
+                ]
+            ])
+            ;
+    }
 
     public function consume(string $type, string $value) : array
     {

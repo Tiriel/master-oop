@@ -5,13 +5,17 @@ namespace App\Provider;
 use App\Consumer\OMDbApiConsumer;
 use App\Entity\Movie;
 use App\Transformer\MovieTransformer;
+use Symfony\Component\HttpClient\HttpClient;
 
 class MovieProvider
 {
-    public function __construct(
-        private OMDbApiConsumer $consumer,
-        private MovieTransformer $transformer
-    ) {}
+    private OMDbApiConsumer $consumer;
+    private MovieTransformer $transformer;
+
+    public function __construct() {
+        $this->consumer = new OMDbApiConsumer();
+        $this->transformer = new MovieTransformer();
+    }
 
     public function getOneMovie(string $type, string $value): Movie
     {

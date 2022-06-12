@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
-use App\Provider\MovieProvider;
+use App\Consumer\OMDbApiConsumer;
 use App\Security\Voter\MovieRatingVoter;
+use App\Transformer\MovieTransformer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,9 +21,10 @@ class MovieController extends AbstractController
     }
 
     #[Route('/{title}', name: 'details')]
-    public function details(string $title, MovieProvider $provider): Response
+    public function details(string $title): Response
     {
-        $movie = $provider->getByTitle($title);
+        $data = (new OMDbApiConsumer())->consume(OMDbApiConsumer::MODE_TITLE, $title);
+        $movie = (new MovieTransformer())->arrayToMovie($data);
         $this->denyAccessUnlessGranted(MovieRatingVoter::RATING, $movie);
 
         return $this->render('movie/details.html.twig', [
