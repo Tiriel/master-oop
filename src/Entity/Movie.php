@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
-class Movie
+class Movie implements ModelIdInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -47,6 +47,13 @@ class Movie
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getTitle(): ?string

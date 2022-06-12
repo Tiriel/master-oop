@@ -20,5 +20,12 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Notifier\Factory\NotificationFactoryInterface:
+        tags:
+            - { name: 'app.notification_factory' }
+
+    App\Notifier\MovieOrderNotifier:
+        arguments: [!tagged_iterator { tag: 'app.notification_factory' }]
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

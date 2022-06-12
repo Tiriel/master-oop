@@ -6,7 +6,7 @@ use App\Repository\GenreRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
-class Genre
+class Genre implements ModelIdInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -22,6 +22,13 @@ class Genre
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getName(): ?string
