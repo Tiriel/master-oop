@@ -8,7 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HelloController extends AbstractController
 {
-    #[Route('/hello/{name<\w+>?World}', name: 'app_hello')]
+    /**
+     * @Route("/hello/{name<\w+>?World}", name="app_hello")
+     */
     public function index(string $name): Response
     {
         return $this->render('hello/index.html.twig', [

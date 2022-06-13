@@ -12,10 +12,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(
-    name: 'app:movie:find',
-    description: 'Find a movie by title or OMDb ID',
-)]
 class MovieFindCommand extends Command
 {
     private const TYPES = [
@@ -23,7 +19,7 @@ class MovieFindCommand extends Command
         'title' => OMDbApiConsumer::MODE_TITLE,
     ];
 
-    public function __construct(private MovieProvider $provider, string $name = null)
+    public function __construct(MovieProvider $provider, string $name = null)
     {
         parent::__construct($name);
     }
@@ -31,10 +27,11 @@ class MovieFindCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setName('app:movie:find')
             ->setAliases(['movie:find'])
+            ->setDescription('Find a movie by title or OMDb ID')
             ->addArgument('type', InputArgument::OPTIONAL, 'The type of search, "title" or "id"')
-            ->addArgument('value', InputArgument::OPTIONAL, 'The title or ID to search.')
-        ;
+            ->addArgument('value', InputArgument::OPTIONAL, 'The title or ID to search.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

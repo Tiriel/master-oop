@@ -11,10 +11,14 @@ use Twig\TemplateWrapper;
 
 class BookSubscriber implements EventSubscriberInterface
 {
-    public function __construct(
-        private MailerInterface $mailer,
-        private Environment $twig
-    ) {}
+    private MailerInterface $mailer;
+    private Environment $twig;
+
+    public function __construct(MailerInterface $mailer, Environment $twig)
+    {
+        $this->mailer = $mailer;
+        $this->twig = $twig;
+    }
 
     public function onBookPublished($event)
     {
@@ -28,8 +32,7 @@ class BookSubscriber implements EventSubscriberInterface
             ->to('admin@sensiotv.foo')
             ->html(
                 $this->twig->render('mail/book_published.html.twig', ['book' => $book])
-            )
-        ;
+            );
         $this->mailer->send($mail);
     }
 

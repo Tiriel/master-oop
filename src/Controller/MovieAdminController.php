@@ -10,10 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/movie/admin')]
+/**
+ * @Route("/movie/admin", name="")
+ */
 class MovieAdminController extends AbstractController
 {
-    #[Route('/', name: 'app_movie_admin_index', methods: ['GET'])]
+    /**
+     * @Route("/", name="app_movie_admin_index", methods={"GET"})
+     */
     public function index(MovieRepository $movieRepository): Response
     {
         return $this->render('movie_admin/index.html.twig', [
@@ -21,7 +25,9 @@ class MovieAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_movie_admin_new', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/new", name="app_movie_admin_new", methods={"GET", "POST"})
+     */
     public function new(Request $request, MovieRepository $movieRepository): Response
     {
         $movie = new Movie();
@@ -39,7 +45,9 @@ class MovieAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_movie_admin_show', methods: ['GET'])]
+    /**
+     * @Route("/{id}", name="app_movie_admin_show", methods={"GET"})
+     */
     public function show(Movie $movie): Response
     {
         return $this->render('movie_admin/show.html.twig', [
@@ -47,7 +55,9 @@ class MovieAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_movie_admin_edit', methods: ['GET', 'POST'])]
+    /**
+     * @Route("/{id}/edit", name="app_movie_admin_edit", methods={"GET", "POST"})
+     */
     public function edit(Request $request, Movie $movie, MovieRepository $movieRepository): Response
     {
         $form = $this->createForm(MovieType::class, $movie);
@@ -64,10 +74,12 @@ class MovieAdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_movie_admin_delete', methods: ['POST'])]
+    /**
+     * @Route("/{id}", name="app_movie_admin_delete", methods={"POST"})
+     */
     public function delete(Request $request, Movie $movie, MovieRepository $movieRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$movie->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $movie->getId(), $request->request->get('_token'))) {
             $movieRepository->remove($movie);
         }
 

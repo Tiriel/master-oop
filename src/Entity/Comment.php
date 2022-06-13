@@ -6,26 +6,36 @@ use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CommentRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=CommentRepository::class)
+ */
 class Comment
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\ID
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    #[Assert\Length(min: 5)]
-    #[Assert\NotBlank]
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\Length(min=5)()
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255)
+     */
     private $author;
 
-    #[Assert\Length(min: 10)]
-    #[Assert\NotBlank]
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\Length(min=10)()
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255)
+     */
     private $message;
 
-    #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
+    /**
+     * @ORM\ManyToOne(targetEntity=Book::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $book;
 
     public function getId(): ?int

@@ -8,8 +8,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 class BookEvent extends Event
 {
     public const NAME = 'book.published';
+    private Book $book;
 
-    public function __construct(private Book $book) {}
+    public function __construct(Book $book)
+    {
+        $this->book = $book;
+    }
 
     public function getBook(): Book
     {

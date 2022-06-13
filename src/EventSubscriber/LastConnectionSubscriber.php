@@ -9,7 +9,12 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LastConnectionSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private EntityManagerInterface $manager) {}
+    private EntityManagerInterface $manager;
+
+    public function __construct(EntityManagerInterface $manager)
+    {
+        $this->manager = $manager;
+    }
 
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {

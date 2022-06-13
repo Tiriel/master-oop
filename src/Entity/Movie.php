@@ -7,36 +7,56 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MovieRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=MovieRepository::class)
+ */
 class Movie implements ModelIdInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $poster;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $country;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
     private $releasedAt;
 
-    #[ORM\Column(type: 'decimal', precision: 4, scale: 2)]
+    /**
+     * @ORM\Column(type="decimal", precision=4, scale=2)
+     */
     private $price;
 
-    #[ORM\ManyToMany(targetEntity: Genre::class, cascade: ['persist'])]
+    /**
+     * @ORM\ManyToMany(targetEntity=Genre::class, cascade={"persist"})
+     */
     private $genres;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $omdbId;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $rated;
 
     public function __construct()

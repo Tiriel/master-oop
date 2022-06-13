@@ -7,27 +7,41 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[ORM\Entity(repositoryClass: UserRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
     private $email;
 
-    #[ORM\Column(type: 'json')]
+    /**
+     * @ORM\Column(type="json")
+     */
     private $roles = [];
 
-    #[ORM\Column(type: 'string')]
+    /**
+     * @ORM\Column(type="string")
+     */
     private $password;
 
-    #[ORM\Column(type: 'date', nullable: true)]
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
     private $birthday;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
     private $lastConnection;
 
     public function getId(): ?int
@@ -54,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -64,7 +78,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = "ROLE_USER";
 
         return array_unique($roles);
     }
@@ -122,5 +136,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastConnection = $lastConnection;
 
         return $this;
+    }
+
+    public function getSalt()
+    {
+        return '';
+    }
+
+    public function getUsername()
+    {
+        return $this->getUserIdentifier();
     }
 }

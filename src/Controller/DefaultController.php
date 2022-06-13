@@ -11,7 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+    /**
+     * @Route("/", name="app_home")
+     */
     public function index(MovieRepository $repository): Response
     {
         $movies = $repository->findBy([], null, 6);
@@ -21,7 +23,9 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    #[Route('/contact', name: 'app_contact')]
+    /**
+     * @Route("/contact", name="app_contact")
+     */
     public function contact(Request $request): Response
     {
         $form = $this->createForm(ContactType::class);

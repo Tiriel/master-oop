@@ -10,15 +10,13 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand(
-    name: 'app:book:find',
-    description: 'Find a book by ISBN.',
-)]
 class BookFindCommand extends Command
 {
     protected function configure(): void
     {
         $this
+            ->setName('app:book:find')
+            ->setDescription('Find a book by ISBN.')
             ->setAliases(['book:find'])
             ->addArgument('isbn', InputArgument::REQUIRED, 'ISBN code to retrieve a book')
         ;

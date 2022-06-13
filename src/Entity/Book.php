@@ -8,31 +8,45 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: BookRepository::class)]
+/**
+ * @ORM\Entity(repositoryClass=BookRepository::class)
+ */
 class Book
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
     private $id;
 
-    #[Assert\NotBlank]
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255)
+     */
     private $title;
 
-    #[Assert\Isbn(type: 'isbn-13')]
-    #[Assert\NotBlank]
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @Assert\Isbn(type="isbn-13")()
+     * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=255)
+     */
     private $isbn;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
     private $releasedAt;
 
-    #[Assert\Length(min: 20)]
-    #[ORM\Column(type: 'text')]
+    /**
+     * @Assert\Length(min=20)()
+     * @ORM\Column(type="text")
+     */
     private $plot;
 
-    #[ORM\OneToMany(mappedBy: 'book', targetEntity: Comment::class, orphanRemoval: true)]
+    /**
+     * @ORM\OneToMany(mappedBy="book", targetEntity=Comment::class, orphanRemoval=true)
+     */
     private $comments;
 
     public function __construct()

@@ -12,10 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-#[Route('/book', name: 'app_book_')]
+/**
+ * @Route("/book", name="app_book_")
+ */
 class BookController extends AbstractController
 {
-    #[Route('/{page<\d+>?1}', name: 'index')]
+    /**
+     * @Route("/{page<\d+>?1}", name="index")
+     */
     public function index(int $page): Response
     {
         return $this->render('book/index.html.twig', [
@@ -23,7 +27,9 @@ class BookController extends AbstractController
         ]);
     }
 
-    #[Route('/create', name: 'create')]
+    /**
+     * @Route("/create", name="create")
+     */
     public function create(Request $request, BookRepository $repository, EventDispatcherInterface $dispatcher): Response
     {
         $book = new Book();
