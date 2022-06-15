@@ -5,7 +5,7 @@ namespace App\Notifier\Factory;
 use App\Notifier\Notifications\SlackNotification;
 use Symfony\Component\Notifier\Notification\Notification;
 
-class SlackNotificationFactory implements NotificationFactoryInterface
+class SlackNotificationFactory implements IterableNotificationFactoryInterface
 {
 
     public function getNotification(string $message): Notification

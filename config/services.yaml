@@ -20,7 +20,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    App\Notifier\Factory\NotificationFactoryInterface:
+    App\Notifier\Factory\IterableNotificationFactoryInterface:
         tags:
             - { name: 'app.notification_factory' }
 

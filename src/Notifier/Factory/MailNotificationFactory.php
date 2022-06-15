@@ -5,7 +5,7 @@ namespace App\Notifier\Factory;
 use App\Notifier\Notifications\MailNotification;
 use Symfony\Component\Notifier\Notification\Notification;
 
-class MailNotificationFactory implements NotificationFactoryInterface
+class MailNotificationFactory implements IterableNotificationFactoryInterface
 {
 
     public function getNotification(string $message): Notification

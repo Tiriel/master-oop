@@ -5,7 +5,7 @@ namespace App\Notifier\Factory;
 use App\Notifier\Notifications\FirebaseNotification;
 use Symfony\Component\Notifier\Notification\Notification;
 
-class FirebaseNotificationFactory implements NotificationFactoryInterface
+class FirebaseNotificationFactory implements IterableNotificationFactoryInterface
 {
 
     public function getNotification(string $message): Notification
