@@ -23,7 +23,7 @@ class MovieFindCommand extends Command
         'title' => OMDbApiConsumer::MODE_TITLE,
     ];
 
-    public function __construct(private MovieProvider $provider, string $name = null)
+    public function __construct(string $name = null)
     {
         parent::__construct($name);
     }
