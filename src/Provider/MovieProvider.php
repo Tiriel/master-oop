@@ -15,16 +15,11 @@ class MovieProvider
         private MovieTransformer $transformer
     ) {}
 
-    private function getOneMovie(string $type, string $value): Movie
+    public function getOneMovie(string $type, string $value): Movie
     {
-        $movie = $this->repository->findOneBy([$type => $value]) ?? $this->transformer->arrayToMovie(
-                $this->consumer->consume($type, $value)
-            );
-        if (!$movie->getId()) {
-            $this->repository->add($movie, true);
-        }
-
-        return $movie;
+        return $this->repository->findOneBy([$type => $value]) ?? $this->transformer->arrayToMovie(
+            $this->consumer->consume($type, $value)
+        );
     }
 
     public function getById(string $id): Movie
